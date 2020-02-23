@@ -14,6 +14,7 @@ class Main {
         }
         sc.close();
         Store store = new Store("Noma");
+        store.employ(new Waiter(1,0.5));
         for (Customer c : inc) {
             double time = c.arrTime();
             Waiter w = store.receives(time);

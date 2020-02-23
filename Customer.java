@@ -6,7 +6,7 @@ class Customer {
 	Customer(int id, double arrTime) {
 		this.id = id;
 		this.arrTime = arrTime;
-		this.patience = 0;
+		this.patience = 1;
 	}
 
 	Customer(int id, double arrTime, int p) {

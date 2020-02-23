@@ -35,7 +35,7 @@ class Waiter {
 	}
 	
 	double lastTime() {
-		return this.finishTime(this.q.get(-1));
+		return this.finishTime(this.q.get(this.q.size()-1));
 	}
 
 	void serve(Customer c) {
