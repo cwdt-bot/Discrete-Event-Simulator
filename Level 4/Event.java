@@ -1,37 +1,11 @@
-/**
- * Models occurences within a store
- * <p>
- * There are different events current tracked by the state string parameter. All are compared
- * via the time they occur
- */
-
 class Event implements Comparable<Event> {
     private final Customer c;
     private final Waiter w;
     private final double time;
-    /**
-     * states are: arrives, left, waits, served, done
-     * <p>
-     * arrives: Customer arrival 
-     * <p>
-     * left: Customer leaves after deciding not to wait
-     * <p> 
-     * waits: Customer arrives and chooses to wait
-     * <p>
-     * served: Customer is being served by Waiter
-     * <p>
-     * done: Customer service has been completed
-     */
     private final String state;
 
-    /**
-     * Constructs an event that has a Customer-Waiter match. Events that fall into
-     * this category are: wait, served, done
-     * @param c Customer involved 
-     * @param w Waiter involved
-     * @param time event time 
-     * @param state describes the event
-     */
+    // this is used when there is a waiter/customer match
+    // used to create 'wait'/'served' events
     Event(Customer c, Waiter w, double time, String state) {
         this.c = c;
         this.w = w;
@@ -40,13 +14,8 @@ class Event implements Comparable<Event> {
 
     }
 
-    /**
-     * Constructs an event that has no Customer-Waiter match. Events that fall into
-     * this category are: arrives, left
-     * @param c Customer involved
-     * @param time  event time
-     * @param state describes the event
-     */
+    // this constructor is used when the customer cannot be served, so no waiter can be assigned
+    // this is used to create 'arrives'/'left' events
     Event(Customer c, double time, String state) {
         this.c = c;
         this.w = null;
@@ -63,25 +32,20 @@ class Event implements Comparable<Event> {
         if (state.equals("left")) {
             return String.format("%.3f", this.getTime()) + " " + c.id() + " leaves";
         } else if (state.equals("done")) {
-            return String.format("%.3f", this.getTime()) + " " + c.id() + " done";
+            return String.format("%.3f", this.getTime()) + ": Customer " + c.id() + " is done";
         } else if (state.equals("waits")) {
-            return String.format("%.3f", this.getTime()) + " " + c.id() +  " waits";
+            return String.format("%.3f", this.getTime()) + ": Customer " + c.id() +  " waits";
         } else if (state.equals("served")) {
             return String.format("%.3f", this.getTime()) + " " + c.id() + " served";
         } else { //arrives
             return "" + this.c;
         }
     }
-    /**
-     * Implements a natural order for events according to the time of occurence
-     * ties are broken by Customer ID, followed by whether the event is an 'arrives'
-     * event. 
-     * Earlier events return a negative int when compared to a later event
-     */
+    
     public int compareTo(Event e) {
         if (e.getTime() == this.getTime()) {
-            if (this.cust().id() == e.cust().id()) {  
-                // 'arrive' event should be higher priority than 'leave' event
+            if (this.cust().id() == e.cust().id()) { 
+                //arrive event should be higher priority than 'leave' event
                 if (this.state().equals(e.state())) {
                     return 0;
                 } else if (this.state().equals("arrives")) {
@@ -108,10 +72,6 @@ class Event implements Comparable<Event> {
 
     Customer cust() {
         return this.c;
-    }
-
-    Waiter waiter() {
-        return this.w;
     }
     
 }

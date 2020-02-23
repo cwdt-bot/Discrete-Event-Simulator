@@ -1,5 +1,19 @@
 
-*.un~
-*.swp
+Level 1/cs2030_checks.xml
+*.jar
+Level 1/Customer.class
 *.java~
+*.un~
 *.class
+Level 2/cs2030_checks.xml
+*.in
+*.xml
+*.png
+*.js
+*.zip
+*.in
+*.in
+*.css
+Level 5/docs/package-summary.html
+*.html
+Level 5/docs/element-list

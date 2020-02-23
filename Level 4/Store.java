@@ -1,22 +1,13 @@
 import java.util.PriorityQueue;
 import java.util.ArrayList;
 
-/**
- * Creates an environment for Waiters and Customers to interact.
- * 
- * <p> Each store tracks statistics such as number of people served, number of people 
- * who waited, who left as well as time spent waiting. </p>
- */
 class Store {
     private final String name;
-    /** Store-employed waiters */
     private ArrayList<Waiter> waiters = new ArrayList<>();
-    /**Stores events in chronological order */
     private PriorityQueue<Event> q = new PriorityQueue<>();
     private int served = 0;
     private int waited = 0;
     private int left = 0;
-    private double waitTime = 0;
 
     Store(String name) {
         this.name = name;
@@ -30,15 +21,12 @@ class Store {
         return this.name;
     }
 
-    /**
-     * Returns the earliest available employed waiter that can serve a customer at the
-     * specified time. If all are equally busy, then the first waiter is returned
-     * @param time specified time when a waiter is wanted
-     * @return Waiter object 
-     */
+    // if customer can be served, returned the assigned waiter, if not, null
+    // nulls occur when customer input is chronogically earlier than previous inputs 
+    // if inputs for customers are strictly chronological, nulls should never occur
     Waiter receives(double time) {
         int min = Integer.MAX_VALUE;
-        Waiter assigned = waiters.get(0);
+        Waiter assigned = null;
         for (Waiter w : waiters) {
             int waiting = w.inWait(time);
             if (waiting == 0) {
@@ -52,11 +40,6 @@ class Store {
         return assigned;
     }
 
-    /**
-     * Adds events to the internal PriorityQueue. Checks what kind of event is being
-     * added and updates statistics
-     * @param e any Event object
-     */
     void addEvent(Event e) {
         String state = e.state();
         this.q.add(e);
@@ -69,10 +52,6 @@ class Store {
         }
     }
 
-    /**
-     * Returns the full schedule of the store
-     * @return PriorityQueue represent schedule of the store
-     */
     PriorityQueue<Event> showSchedule() {
         return this.q;
     }
@@ -87,14 +66,6 @@ class Store {
 
     int numLeft() {
         return this.left;
-    }
-
-    double avgWaitTime() {
-        return this.waitTime / this.numServed();
-    }
-
-    void addToWaitTime(double x) {
-        this.waitTime += x;
     }
 
 }
