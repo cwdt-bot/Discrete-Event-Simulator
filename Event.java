@@ -1,28 +1,20 @@
 /**
- * Models occurences within a store
- * <p>
- * There are different events current tracked by the state string parameter. All are compared
- * via the time they occur
+ * Models occurences within a store. This class is abstract because we need to know 
+ * what kind of event it is. An event by itself lacks information. 
+ * <p>There are different events current tracked by the state string parameter. All are compared
+ * via the time they occur</p>
+ * 
+ * <p>Event weight is the priority given to each type of event subclass which indicates
+ * which should event the restaurant should process first </p>
+ * 
+ * <p>Implementing classes: ArrivalEvent, DoneEvent, LeftEvent, ServeEvent, WaitEvent
  */
 
-class Event implements Comparable<Event> {
-    private final Customer c;
-    private final Waiter w;
+abstract class Event implements Comparable<Event> {
+    protected final Customer c;
+    protected final Waiter w;
     private final double time;
-    /**
-     * states are: arrives, left, waits, served, done
-     * <p>
-     * arrives: Customer arrival 
-     * <p>
-     * left: Customer leaves after deciding not to wait
-     * <p> 
-     * waits: Customer arrives and chooses to wait
-     * <p>
-     * served: Customer is being served by Waiter
-     * <p>
-     * done: Customer service has been completed
-     */
-    private final String state;
+    private final int eventWeight;
 
     /**
      * Constructs an event that has a Customer-Waiter match. Events that fall into
@@ -32,33 +24,18 @@ class Event implements Comparable<Event> {
      * @param time event time 
      * @param state describes the event
      */
-    Event(Customer c, Waiter w, double time, String state) {
+    Event(Customer c, Waiter w, double time, int weight) {
         this.c = c;
         this.w = w;
         this.time = time;
-        this.state = state;
-
-    }
-
-    /**
-     * Constructs an event that has no Customer-Waiter match. Events that fall into
-     * this category are: arrives, left
-     * @param c Customer involved
-     * @param time  event time
-     * @param state describes the event
-     */
-    Event(Customer c, double time, String state) {
-        this.c = c;
-        this.w = null;
-        this.time = time;
-        this.state = state;
+        this.eventWeight = weight;
     }
 
     double getTime() {
         return this.time;
     }
     
-    public String toString() {
+    /*public String toString() {
         String state = this.state();
         if (state.equals("left")) {
             return String.format("%.3f", this.getTime()) + " " + c.id() + " leaves";
@@ -71,14 +48,16 @@ class Event implements Comparable<Event> {
         } else { //arrives
             return "" + this.c;
         }
-    }
+    }  doesnt need toString method anymore*/
+
+
     /**
      * Implements a natural order for events according to the time of occurence
      * ties are broken by Customer ID, followed by whether the event is an 'arrives'
      * event. 
      * Earlier events return a negative int when compared to a later event
      */
-    public int compareTo(Event e) {
+    /*public int compareTo(Event e) {
         if (e.getTime() == this.getTime()) {
             if (this.cust().id() == e.cust().id()) {  
                 // 'arrive' event should be higher priority than 'leave' event
@@ -99,11 +78,30 @@ class Event implements Comparable<Event> {
         } else {
             return 1;
         }
-    }
+    } */
 
-
-    String state() {
-        return this.state;
+    public int compareTo(Event e) {
+        if (e.getTime() == this.getTime()) {
+            if (this.cust().id() == e.cust().id()) {  
+                // 'arrive' event should be higher priority than 'leave' event
+                if (this.weight() == e.weight()) {
+                    return 0;
+                } else if (this.weight() < e.weight()) {
+                    return -1;
+                } else {
+                    return 1;
+                }
+            //smaller Customer ID has priority    
+            } else if (this.cust().id() < e.cust().id()) {
+                return -1;
+            } else {
+                return 1;
+            }
+        } else if (this.getTime() < e.getTime()) {
+            return -1;
+        } else {
+            return 1;
+        }
     }
 
     Customer cust() {
@@ -112,6 +110,10 @@ class Event implements Comparable<Event> {
 
     Waiter waiter() {
         return this.w;
+    }
+
+    int weight() {
+        return this.eventWeight;
     }
     
 }

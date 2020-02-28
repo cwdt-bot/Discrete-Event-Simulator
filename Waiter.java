@@ -1,19 +1,19 @@
 import java.util.ArrayList;
 /**
- * Models Waiters that serve Customers
- * <p>
- * Due to the implementation of the class, Waiters can only work chronogically;
- * subsequent calls to Waiter.serve() must strictly be later or the same chronologically. 
+ * Models Waiters that serve Customers.
+ * <p>Due to the implementation of the class, Waiters can only work chronogically;
+ * subsequent calls to Waiter.serve() must strictly be later or the same chronologically. </p>
  */
 
 class Waiter {
     private final int id;
-    /** time is takes for a waiter to complete a service */
+    /** time is takes for a waiter to complete a service. */
     private final double serviceTime;
     /** tracks the ending time of all services that a waiter performs chronologically. 
     * Essentially the waiter's schedule
     */
     private ArrayList<Double> q = new ArrayList<>(); 
+    
     Waiter(int id, double serviceTime) {
         this.id = id;
         this.serviceTime = serviceTime;
@@ -29,7 +29,7 @@ class Waiter {
 
     /**
      * Indicates how many customers are in wait for this particular waiter at a
-     * specified point in time
+     * specified point in time.
      * @param time specified point in time
      * @return  integer indicating how many customers are in wait
      */
@@ -62,12 +62,11 @@ class Waiter {
     }
 
     /**
-     * Serves a customer, indicates how long a customer will have to wait
-     * <p>
-     * Waiter will start serving the customer as soon as it is able to.
-     * The ending time of this specific service is added to the waiter's schedule.
-     * <p>
-     * Calls to this method must be made chronologically. 
+     * Serves a customer, indicates how long a customer will have to wait.
+     * <p>Waiter will start serving the customer as soon as it is able to.
+     * The ending time of this specific service is added to the waiter's schedule. </p>
+     * 
+     * <p>Calls to this method must be made chronologically.</p>
      * @param c Customer to be served
      * @return  double indicating how long the cuustomer needs to wait
      */

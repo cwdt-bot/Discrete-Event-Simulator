@@ -9,9 +9,9 @@ import java.util.ArrayList;
  */
 class Store {
     private final String name;
-    /** Store-employed waiters */
+    /** Store-employed waiters. */
     private ArrayList<Waiter> waiters = new ArrayList<>();
-    /**Stores events in chronological order */
+    /**Stores events in chronological order. */
     private PriorityQueue<Event> q = new PriorityQueue<>();
     private int served = 0;
     private int waited = 0;
@@ -32,7 +32,7 @@ class Store {
 
     /**
      * Returns the earliest available employed waiter that can serve a customer at the
-     * specified time. If all are equally busy, then the first waiter is returned
+     * specified time. If all are equally busy, then the first waiter is returned.
      * @param time specified time when a waiter is wanted
      * @return Waiter object 
      */
@@ -54,23 +54,22 @@ class Store {
 
     /**
      * Adds events to the internal PriorityQueue. Checks what kind of event is being
-     * added and updates statistics
+     * added and updates statistics.
      * @param e any Event object
      */
     void addEvent(Event e) {
-        String state = e.state();
         this.q.add(e);
-        if (state.equals("left")) {
+        if (e instanceof LeftEvent) {
             this.left++;
-        } else if (state.equals("waits")) {
+        } else if (e instanceof WaitEvent) {
             this.waited++;
-        } else if (state.equals("served")) {
+        } else if (e instanceof ServeEvent) {
             this.served++;
         }
     }
 
     /**
-     * Returns the full schedule of the store
+     * Returns the full schedule of the store.
      * @return PriorityQueue represent schedule of the store
      */
     PriorityQueue<Event> showSchedule() {

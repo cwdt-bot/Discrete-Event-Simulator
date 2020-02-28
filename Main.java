@@ -8,8 +8,9 @@ class Main {
         Scanner sc = new Scanner(System.in);
         int count = 1;
         ArrayList<Customer> inc = new ArrayList<>();
+        CustomerLogic baseLogic = new CustomerLogic(1);
         while (sc.hasNext()) {
-            inc.add(new Customer(count, sc.nextDouble()));
+            inc.add(new Customer(count, sc.nextDouble(), baseLogic));
             count++;
         }
         sc.close();
@@ -20,25 +21,25 @@ class Main {
             Waiter w = store.receives(time);
             int toWait = w.inWait(time);
             boolean waits = c.assess(toWait);
-            Event arrive = new Event(c, time, "arrives"); 
+            ArrivalEvent arrive = new ArrivalEvent(c, time); 
             store.addEvent(arrive);                         //add arrives event
             if (!waits) {                                   //doesnt want to wait
-                Event e = new Event(c,time,"left");
+                LeftEvent e = new LeftEvent(c,time);
                 store.addEvent(e);                          //add leaves event             
             } else if (toWait == 0) {                         // there is no wait
-                Event e = new Event(c,w,time,"served");     //add served event
+                ServeEvent e = new ServeEvent(c,w,time);     //add served event
                 store.addToWaitTime(w.serve(c));
                 store.addEvent(e);           
-                Event f = new Event(c,w,w.finishTime(time),"done");     //add done event
+                DoneEvent f = new DoneEvent(c,w,w.finishTime(time));     //add done event
                 store.addEvent(f);
             } else {                                         //willing to wait
                 double nextService = w.lastTime();
-                Event e = new Event(c,w,time,"waits");       //add waiting event
-                Event f = new Event(c,w,nextService,"served");     //add served event
+                WaitEvent e = new WaitEvent(c,w,time);       //add waiting event
+                ServeEvent f = new ServeEvent(c,w,nextService);     //add served event
                 store.addToWaitTime(w.serve(c));
                 store.addEvent(e);
                 store.addEvent(f);
-                Event g = new Event(c,w,w.finishTime(nextService),"done");        //add done event
+                DoneEvent g = new DoneEvent(c,w,w.finishTime(nextService));        //add done event
                 store.addEvent(g);
             }
         }
