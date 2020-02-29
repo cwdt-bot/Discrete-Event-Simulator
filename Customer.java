@@ -8,6 +8,7 @@
 class Customer {
     private static final double noTimePref = 0;
     private static final int noCustPref = 0;
+    private static int globalCustomers = 0;
     private final int id;
     private final double arrTime;
     private final CustomerLogic logic;
@@ -20,10 +21,11 @@ class Customer {
      * @param id integer indicating the identity of Customer object
      * @param arrTime double indicating the time of arrival of Customer
      */
-    Customer(int id, double arrTime, CustomerLogic l) {
-        this.id = id;
+    Customer(double arrTime, CustomerLogic l) {
+        this.id = Customer.globalCustomers + 1 ;
         this.arrTime = arrTime;
         this.logic = l;
+        Customer.globalCustomers++ ;
 
     }
 
