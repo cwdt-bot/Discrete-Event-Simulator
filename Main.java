@@ -6,12 +6,10 @@ class Main {
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        int count = 1;
         ArrayList<Customer> inc = new ArrayList<>();
         CustomerLogic baseLogic = new CustomerLogic(1);
         while (sc.hasNext()) {
-            inc.add(new Customer(count, sc.nextDouble(), baseLogic));
-            count++;
+            inc.add(new Customer(sc.nextDouble(), baseLogic));
         }
         sc.close();
         Store store = new Store("Noma");
