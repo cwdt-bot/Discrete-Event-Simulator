@@ -10,7 +10,7 @@ class CustomerLogic {
     private static final boolean defaultTimePref = false;
     /**
      * timepref = true means that a customer would place importance on time rather than
-     * number of people ahead
+     * number of people ahead. Default is false.
      */
     private final boolean timePref; 
 
