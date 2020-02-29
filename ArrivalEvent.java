@@ -14,6 +14,7 @@ class ArrivalEvent extends Event {
         return ArrivalEvent.eventWeight;
     }
 
+    @Override
     public String toString() {
         return "" + this.c;
     }

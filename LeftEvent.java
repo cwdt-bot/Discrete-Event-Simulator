@@ -15,6 +15,7 @@ class LeftEvent extends Event {
         return LeftEvent.eventWeight;
     }
 
+    @Override
     public String toString() {
         return String.format("%.3f", this.getTime()) + " " + c.id() + " leaves";
     }

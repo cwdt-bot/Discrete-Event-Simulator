@@ -15,6 +15,7 @@ class ServeEvent extends Event {
         return ServeEvent.eventWeight;
     }
 
+    @Override
     public String toString() {
         return String.format("%.3f", this.getTime()) + " " + c.id() + " served";
     }
