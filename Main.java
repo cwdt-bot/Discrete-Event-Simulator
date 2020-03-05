@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 class Main {
 
-    public static void main(String[] args) {
+    public static ArrayList<Customer> scanIn() {
         Scanner sc = new Scanner(System.in);
         ArrayList<Customer> inc = new ArrayList<>();
         CustomerLogic baseLogic = new CustomerLogic(1);
@@ -12,6 +12,11 @@ class Main {
             inc.add(new Customer(sc.nextDouble(), baseLogic));
         }
         sc.close();
+        return inc;
+    }
+
+    public static void main(String[] args) {
+        ArrayList<Customer> inc = Main.scanIn();
         Store store = new Store("Noma");
         store.employ(new Waiter(1,1));
         store.serve(inc);
