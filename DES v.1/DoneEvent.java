@@ -6,11 +6,11 @@
 class DoneEvent extends Event {
     private static final int eventWeight = 2;
 
-    public DoneEvent(Customer c, Waiter w, double time) {
+    DoneEvent(Customer c, Waiter w, double time) {
         super(c,w,time,DoneEvent.eventWeight);
     }
 
-    public int weight() {
+    int weight() {
         return DoneEvent.eventWeight;
     }
 

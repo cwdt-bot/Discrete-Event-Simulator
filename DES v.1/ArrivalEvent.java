@@ -6,11 +6,11 @@ class ArrivalEvent extends Event {
     private static final Waiter numWaiter = null;
     private static final int eventWeight = 0;
 
-    public ArrivalEvent(Customer c, double time) {
+    ArrivalEvent(Customer c, double time) {
         super(c,ArrivalEvent.numWaiter,time,ArrivalEvent.eventWeight);
     }
 
-    public int weight() {
+    int weight() {
         return ArrivalEvent.eventWeight;
     }
 

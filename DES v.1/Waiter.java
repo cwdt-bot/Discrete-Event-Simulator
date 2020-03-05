@@ -14,16 +14,16 @@ class Waiter {
     */
     private ArrayList<Double> q = new ArrayList<>(); 
     
-    public Waiter(int id, double serviceTime) {
+    Waiter(int id, double serviceTime) {
         this.id = id;
         this.serviceTime = serviceTime;
     }
 
-    public int id() {
+    int id() {
         return this.id;
     }
 
-    public double finishTime(double time) {
+    double finishTime(double time) {
         return time + this.serviceTime;
     }
 
@@ -33,7 +33,7 @@ class Waiter {
      * @param time specified point in time
      * @return  integer indicating how many customers are in wait
      */
-    public int inWait(double time) {
+    int inWait(double time) {
         int r = this.q.size();
         if (r == 0) {
             return r;
@@ -53,7 +53,7 @@ class Waiter {
      * If the waiter has done nothing so far, 0 is returned.
      * @return time of latest service, or 0 if no service has been done
      */
-    public double lastTime() {
+    double lastTime() {
         if (this.q.size() != 0) {
             return this.q.get(this.q.size() - 1);
         } else {
@@ -70,7 +70,7 @@ class Waiter {
      * @param c Customer to be served
      * @return  double indicating how long the cuustomer needs to wait
      */
-    public double serve(Customer c) {
+    double serve(Customer c) {
         double lag = 0;
         if (this.lastTime() != 0) {
             if (this.lastTime() > c.arrTime()) {

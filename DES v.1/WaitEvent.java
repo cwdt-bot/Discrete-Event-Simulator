@@ -6,11 +6,11 @@
 class WaitEvent extends Event {
     private static final int eventWeight = 3;
 
-    public WaitEvent(Customer c, Waiter w, double time) {
+    WaitEvent(Customer c, Waiter w, double time) {
         super(c,w,time,WaitEvent.eventWeight);
     }
 
-    public int weight() {
+    int weight() {
         return WaitEvent.eventWeight;
     }
 

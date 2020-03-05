@@ -7,11 +7,11 @@
 class ServeEvent extends Event {
     private static final int eventWeight = 1;
 
-    public ServeEvent(Customer c, Waiter w, double time) {
+    ServeEvent(Customer c, Waiter w, double time) {
         super(c,w,time,ServeEvent.eventWeight);
     }
 
-    public int weight() {
+    int weight() {
         return ServeEvent.eventWeight;
     }
 

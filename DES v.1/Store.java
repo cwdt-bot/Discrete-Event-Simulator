@@ -18,15 +18,15 @@ class Store {
     private int left = 0;
     private double waitTime = 0;
 
-    public Store(String name) {
+    Store(String name) {
         this.name = name;
     }
 
-    public void employ(Waiter w) {
+    void employ(Waiter w) {
         this.waiters.add(w);
     }
 
-    public String name() {
+    String name() {
         return this.name;
     }
 
@@ -36,7 +36,7 @@ class Store {
      * @param time specified time when a waiter is wanted
      * @return Waiter object 
      */
-    public Waiter receives(double time) {
+    Waiter receives(double time) {
         int min = Integer.MAX_VALUE;
         Waiter assigned = waiters.get(0);
         for (Waiter w : waiters) {
@@ -57,7 +57,7 @@ class Store {
      * added and updates statistics.
      * @param e any Event object
      */
-    public void addEvent(Event e) {
+    void addEvent(Event e) {
         this.q.add(e);
         if (e instanceof LeftEvent) {
             this.left++;
@@ -72,64 +72,28 @@ class Store {
      * Returns the full schedule of the store.
      * @return PriorityQueue represent schedule of the store
      */
-    public PriorityQueue<Event> showSchedule() {
+    PriorityQueue<Event> showSchedule() {
         return this.q;
     }
 
-    public int numServed() {
+    int numServed() {
         return this.served;
     }
 
-    public int numWaited() {
+    int numWaited() {
         return this.waited;
     }
 
-    public int numLeft() {
+    int numLeft() {
         return this.left;
     }
 
-    public double avgWaitTime() {
+    double avgWaitTime() {
         return this.waitTime / this.numServed();
     }
 
-    public void addToWaitTime(double x) {
+    void addToWaitTime(double x) {
         this.waitTime += x;
-    }
-
-    /**
-     * Models the logic of a store accepting a group of customers. 
-     * The events that transpire in the store is contained in internal PriorityQueue. 
-     * 
-     * @param inc ArrayList<Customer> that visit the store
-     */
-    public void serve(ArrayList<Customer> inc) {
-        for (Customer c : inc) {
-            double time = c.arrTime();
-            Waiter w = this.receives(time);
-            int toWait = w.inWait(time);
-            boolean waits = c.assess(toWait);
-            ArrivalEvent arrive = new ArrivalEvent(c, time); 
-            this.addEvent(arrive);                         //add arrives event
-            if (!waits) {                                   //doesnt want to wait
-                LeftEvent e = new LeftEvent(c,time);
-                this.addEvent(e);                          //add leaves event             
-            } else if (toWait == 0) {                         // there is no wait
-                ServeEvent e = new ServeEvent(c,w,time);     //add served event
-                this.addToWaitTime(w.serve(c));
-                this.addEvent(e);           
-                DoneEvent f = new DoneEvent(c,w,w.finishTime(time));     //add done event
-                this.addEvent(f);
-            } else {                                         //willing to wait
-                double nextService = w.lastTime();
-                WaitEvent e = new WaitEvent(c,w,time);       //add waiting event
-                ServeEvent f = new ServeEvent(c,w,nextService);     //add served event
-                this.addToWaitTime(w.serve(c));
-                this.addEvent(e);
-                this.addEvent(f);
-                DoneEvent g = new DoneEvent(c,w,w.finishTime(nextService));        //add done event
-                this.addEvent(g);
-            }
-        }
     }
 
 }

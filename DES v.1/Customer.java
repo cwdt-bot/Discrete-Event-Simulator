@@ -21,7 +21,7 @@ class Customer {
      * @param id integer indicating the identity of Customer object
      * @param arrTime double indicating the time of arrival of Customer
      */
-    public Customer(double arrTime, CustomerLogic l) {
+    Customer(double arrTime, CustomerLogic l) {
         this.id = Customer.globalCustomers + 1;
         this.arrTime = arrTime;
         this.logic = l;
@@ -35,11 +35,11 @@ class Customer {
     }
 
 
-    public double arrTime() {
+    double arrTime() {
         return this.arrTime;
     }
 
-    public int id() {
+    int id() {
         return this.id;
     }
     
@@ -48,11 +48,11 @@ class Customer {
      * @param toWait the number of other customers ahead in line
      * @return true if Customer is willing to wait, else false
      */
-    public boolean assess(int numPeople) {
+    boolean assess(int numPeople) {
         return this.logic.assess(numPeople, Customer.noTimePref);
     }
 
-    public boolean assess(double waitTime) {
+    boolean assess(double waitTime) {
         return this.logic.assess(Customer.noCustPref, waitTime);
     }
 

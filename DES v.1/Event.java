@@ -31,7 +31,7 @@ abstract class Event implements Comparable<Event> {
         this.eventWeight = weight;
     }
 
-    public double getTime() {
+    double getTime() {
         return this.time;
     }
     
@@ -59,15 +59,15 @@ abstract class Event implements Comparable<Event> {
         }
     }
 
-    public Customer cust() {
+    Customer cust() {
         return this.c;
     }
 
-    public Waiter waiter() {
+    Waiter waiter() {
         return this.w;
     }
 
-    public int weight() {
+    int weight() {
         return this.eventWeight;
     }
     
