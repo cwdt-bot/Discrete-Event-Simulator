@@ -15,35 +15,36 @@ class CustomerLogic {
     private final boolean timePref; 
 
     /**
-     * Constructs a logic with no patience
+     * Constructs a logic with no patience.
      */
     CustomerLogic() {
         this.personLimit = CustomerLogic.nullPerson;
         this.timeLimit = CustomerLogic.nullTime;
         this.timePref = CustomerLogic.defaultTimePref;
     }
+
     /**
-     * Constructs a logic which only considers the number of people to wait for
+     * Constructs a logic which only considers the number of people to wait for.
      * @param l max number of people logic is willing to wait
      */
     CustomerLogic(int l) {
         this.personLimit = l;
         this.timeLimit = CustomerLogic.nullTime;
-        this.timePref = CustomerLogic.defaultTimePref;
-        
+        this.timePref = CustomerLogic.defaultTimePref;    
     }
+
     /**
-     * Constructs a logic which only considers the time of the wait
+     * Constructs a logic which only considers the time of the wait.
      * @param l max time the logic is willing to wait
      */
     CustomerLogic(double l) {
         this.personLimit = CustomerLogic.nullPerson;
         this.timeLimit = l;
-        this.timePref = CustomerLogic.defaultTimePref;
-        
+        this.timePref = CustomerLogic.defaultTimePref;    
     }
+    
     /**
-     * Constructs a logic that considers both people in queue and time to wait
+     * Constructs a logic that considers both people in queue and time to wait.
      * @param x max number of people to wait
      * @param y max time to wait 
      */
@@ -54,7 +55,7 @@ class CustomerLogic {
     }
 
     /**
-     * Assesses the wait time and returns a boolean. 
+     * Assesses the wait time and returns a boolean.  
      * @param x number of people ahead
      * @param y amount of time to wait
      * @return true if customer will wait, else false

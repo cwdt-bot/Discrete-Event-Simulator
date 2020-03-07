@@ -52,6 +52,11 @@ class Customer {
         return this.logic.assess(numPeople, Customer.noTimePref);
     }
 
+    /**
+     * Decides if customer will wait for (waitTime) amount of time. 
+     * @param waitTime the time the customer has to wait
+     * @return true if Customer is willing to wiat, else false
+     */
     public boolean assess(double waitTime) {
         return this.logic.assess(Customer.noCustPref, waitTime);
     }

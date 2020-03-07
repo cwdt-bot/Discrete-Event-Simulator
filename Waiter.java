@@ -83,7 +83,7 @@ class Waiter {
     }
 
     public String toString() {
-        return q.toString();
+        return "Waiter " + this.id() + " " + q.toString();
     }
 }
 

@@ -4,11 +4,11 @@
  */
 
 class LeftEvent extends Event {
-    private static final Waiter numWater = null;
+    private static final Waiter numWaiter = null;
     private static final int eventWeight = 4;
 
     public LeftEvent(Customer c, double time) {
-        super(c,LeftEvent.numWater,time,LeftEvent.eventWeight);
+        super(c,LeftEvent.numWaiter,time,LeftEvent.eventWeight);
     }
 
     public int weight() {

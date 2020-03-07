@@ -5,9 +5,9 @@
  * via the time they occur</p>
  * 
  * <p>Event weight is the priority given to each type of event subclass which indicates
- * which should event the restaurant should process first </p>
+ * which should event the restaurant should process first. </p>
  * 
- * <p>Implementing classes: ArrivalEvent, DoneEvent, LeftEvent, ServeEvent, WaitEvent
+ * <p>Implementing classes: ArrivalEvent, DoneEvent, LeftEvent, ServeEvent, WaitEvent. </p>
  */
 
 abstract class Event implements Comparable<Event> {
@@ -17,9 +17,9 @@ abstract class Event implements Comparable<Event> {
     private final int eventWeight;
 
     /**
-     * Constructs an event that has a Customer-Waiter match. Events that fall into
-     * this category are: wait, served, done
-     * @param c Customer involved 
+     * Constructs an event. Events that do not include a Waiter/Customer match has a null value for 
+     * Event.Waiter.
+     * @param c Customer involved
      * @param w Waiter involved
      * @param time event time 
      * @param state describes the event
@@ -35,6 +35,11 @@ abstract class Event implements Comparable<Event> {
         return this.time;
     }
     
+    /**
+     * Implements compareTo() as part of the Comparable Interface. 
+     * 
+     * <p> Priority heirarchy goes time > customer id > event weight. </p>
+     */
     public int compareTo(Event e) {
         if (e.getTime() == this.getTime()) {
             if (this.cust().id() == e.cust().id()) {  

@@ -68,22 +68,31 @@ class Store {
         }
     }
 
-    /**
-     * Returns the full schedule of the store.
-     * @return PriorityQueue represent schedule of the store
+    /** Returns the events that occur in store. 
+     * @return PriorityQueue representing schedule of the store.
      */
     public PriorityQueue<Event> showSchedule() {
         return this.q;
     }
 
+    /** Returns number of customers served by the store.
+     * @return number of customers served by the store.
+     */
     public int numServed() {
         return this.served;
     }
 
+    /**
+     * Returns number of customers who waited to be served. 
+     * @return number of customers who waited to be served. 
+     */
     public int numWaited() {
         return this.waited;
     }
 
+    /** Returns number of customers who left without being served. 
+     * @return number of customers who left without being served.
+     */
     public int numLeft() {
         return this.left;
     }
@@ -92,15 +101,24 @@ class Store {
         return this.waitTime / this.numServed();
     }
 
-    public void addToWaitTime(double x) {
+    /**
+     * Tracks the total amount of time that all customers wait. 
+     * Updates internal clock this.waitTime.
+     * @param x time added to be added to total.
+     */
+    private void addToWaitTime(double x) {
         this.waitTime += x;
     }
 
     /**
      * Models the logic of a store accepting a group of customers. 
      * The events that transpire in the store is contained in internal PriorityQueue. 
+     * Each customer is processed completely upon arrival, with all associated events
+     * going into the store's PriorityQueue. 
      * 
-     * @param inc ArrayList<Customer> that visit the store
+     * <p>Each waiter has their internal service timings updated as part of waiter.serves(). 
+     * 
+     * @param inc ArrayList of Customers that visit the store
      */
     public void serve(ArrayList<Customer> inc) {
         for (Customer c : inc) {

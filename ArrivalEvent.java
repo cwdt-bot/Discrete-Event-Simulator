@@ -1,5 +1,6 @@
 
-/** Models an arrival of a customer.
+/** 
+ * Models an arrival of a customer.
  * No Customer/Waiter match.
  */
 class ArrivalEvent extends Event {
