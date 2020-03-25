@@ -16,6 +16,6 @@ class DoneEvent extends Event {
 
     @Override
     public String toString() {
-        return String.format("%.3f", this.getTime()) + " " + c.id() + " done";
+        return String.format("%.3f", this.getTime()) + " " + c.id() + " done serving by " + w.id();
     }
 }

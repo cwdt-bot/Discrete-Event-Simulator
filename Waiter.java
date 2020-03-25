@@ -47,6 +47,25 @@ class Waiter {
         }
         return r;
     }
+    /**
+     * Since the Waiter.q list is in chronological order, this method checks the last service
+     * and compares it with the time given to it and returns the wait time as a double
+     * @param time current time
+     * @return time that the customer has to wait for this waiter as a double
+     */
+    public double waitTime(double time) {
+        if (this.q.size() != 0 ) { 
+            double diff = this.q.get(this.q.size() - 1);
+            if (diff < 0 ) {
+                return 0.0;
+            } else {
+                return diff;
+            }
+        } else {
+            return 0.0;
+        } 
+    }
+
     
     /**
      * Shows the ending time of the last service the waiter performs.

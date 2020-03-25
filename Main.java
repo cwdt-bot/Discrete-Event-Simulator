@@ -4,29 +4,25 @@ import java.util.ArrayList;
 
 class Main {
 
-    public static ArrayList<Customer> scanIn() {
+    public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         ArrayList<Customer> inc = new ArrayList<>();
         CustomerLogic baseLogic = new CustomerLogic(1);
+        int numWaiter = sc.nextInt();
         while (sc.hasNext()) {
             inc.add(new Customer(sc.nextDouble(), baseLogic));
         }
-        sc.close();
-        return inc;
-    }
-
-    public static void main(String[] args) {
-        ArrayList<Customer> inc = Main.scanIn();
         Store store = new Store("Noma");
-        store.employ(new Waiter(1,1));
+        for (int x = 0; x < numWaiter; x++) {
+            store.employ(new Waiter(x + 1, 1));
+        }
         store.serve(inc);
         PriorityQueue<Event> schedule = store.showSchedule();
         while (schedule.peek() != null) {
             System.out.println(schedule.poll());
         }
         System.out.println("[" + String.format("%.3f",store.avgWaitTime()) + " " 
-            + store.numServed() + " " + store.numLeft() + "]");
-
-
+            + store.numServed() + " " + store.numLeft() + "]"); 
+        sc.close();
     }
 }

@@ -44,7 +44,7 @@ class Store {
             if (waiting == 0) {
                 assigned = w;
                 break; //if there is no wait, means that waiter can serve customer right away
-            } else if (waiting <= min) {
+            } else if (waiting < min) {
                 min = waiting;
                 assigned = w;
             }

@@ -16,6 +16,6 @@ class WaitEvent extends Event {
 
     @Override
     public String toString() {
-        return String.format("%.3f", this.getTime()) + " " + c.id() + " waits";
+        return String.format("%.3f", this.getTime()) + " " + c.id() + " waits to be served by " + w.id();
     }
 }
