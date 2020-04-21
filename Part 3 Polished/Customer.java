@@ -22,6 +22,11 @@ public class Customer implements Comparable<Customer> {
      * the INDICATE_IDLE static int is used to indicate to a customer that a server is idle.
      */
     public static final int INDICATE_IDLE = -2;
+    /**
+     * This is used to indicate a null customer. The null customer has 
+     * arrival time and id of 0.
+     */
+    public static final Customer NULL_CUSTOMER = new Customer();
 
     /**
      * Creates a customer with an int as id and an arrival time. 
@@ -32,6 +37,14 @@ public class Customer implements Comparable<Customer> {
         this.id = Customer.globalCustomers;
         this.arrTime = arrTime;
         Customer.globalCustomers++;
+    }
+
+    /**
+     * This is used to construct a null customer. 
+     */
+    private Customer() {
+        this.id = 0;
+        this.arrTime = 0.0;
     }
 
     /**

@@ -1,5 +1,7 @@
 package cs2030.simulator;
 
+import java.util.NoSuchElementException;
+
 /** 
  * Extends from Event and models an arrival of a customer. There is no Customer/Server match, 
  * so the event contains only a Customer and the Customer's arrival timing. 
@@ -8,9 +10,9 @@ package cs2030.simulator;
 public class ArrivalEvent extends Event {
     /**
      * Arrival events do not have a server associated with them,
-     * hence the null. 
+     * hence the NULL SERVER. 
      */
-    private static final Server numServer = null;
+    private static final Server numServer = Server.NULL_SERVER;
     /**
      * Arrival events should always come first, so they have the 
      * highest priority (smallest int).
@@ -28,5 +30,10 @@ public class ArrivalEvent extends Event {
     @Override
     public String toString() {
         return String.format("%.3f",c.arrTime()) + " " + c + " arrives";
+    }
+    
+    @Override
+    public Server server() {
+        throw new NoSuchElementException("ArrivalEvent does not have a Server associated with it");
     }
 }

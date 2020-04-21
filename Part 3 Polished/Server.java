@@ -35,6 +35,10 @@ public class Server {
      * the IDLE static int is used to indicate that the Server is idle as an Integer. 
      */
     public static final int IDLE = -2;
+    /**
+     * Used to denote a null Server. It does not have an ID, or a qmax
+     */
+    public static Server NULL_SERVER = new Server();
 
     /**
      * Creates a Server object with a specified maximum number of Customers that 
@@ -45,6 +49,14 @@ public class Server {
         this.id = Server.globalServers;
         this.qmax = qmax;
         Server.globalServers++;
+    }
+
+    /**
+     * Used to construct a null Server
+     */
+    private Server() {
+        this.id = 0;
+        this.qmax = 0;
     }
     
     /**
