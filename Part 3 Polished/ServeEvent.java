@@ -7,7 +7,6 @@ package cs2030.simulator;
  */
 
 public class ServeEvent extends Event {
-    private static final int eventWeight = 1;
 
     /**
      * Creates a ServeEvent indicate that a Customer is being served by a
@@ -17,7 +16,7 @@ public class ServeEvent extends Event {
      * @param time double representing time of occurence 
      */
     public ServeEvent(Customer c, Server s, double time) {
-        super(c,s,time,ServeEvent.eventWeight);
+        super(c,s,time);
     }
 
     @Override

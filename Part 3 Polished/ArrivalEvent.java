@@ -13,18 +13,14 @@ public class ArrivalEvent extends Event {
      * hence the NULL SERVER. 
      */
     private static final Server numServer = Server.NULL_SERVER;
-    /**
-     * Arrival events should always come first, so they have the 
-     * highest priority (smallest int).
-     */
-    private static final int eventWeight = 0;
+
 
     /**
      * Creates ArrivalEvent for given Customer. 
      * @param c Customer arriving
      */
     public ArrivalEvent(Customer c) {
-        super(c,ArrivalEvent.numServer,c.arrTime(),ArrivalEvent.eventWeight);
+        super(c,ArrivalEvent.numServer,c.arrTime());
     }
 
     @Override

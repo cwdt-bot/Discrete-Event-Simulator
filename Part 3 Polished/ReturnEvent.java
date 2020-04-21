@@ -9,7 +9,6 @@ import java.util.NoSuchElementException;
 
 public class ReturnEvent extends Event {
     private static final Customer customer = Customer.NULL_CUSTOMER;
-    private static final int eventWeight = 8;
 
     /**
      * Creates a ReturnEvent modelling the return of a Server from a break.
@@ -17,7 +16,7 @@ public class ReturnEvent extends Event {
      * @param time double representing the time the Server returns
      */
     public ReturnEvent(Server s, double time) {
-        super(ReturnEvent.customer, s, time, ReturnEvent.eventWeight);
+        super(ReturnEvent.customer, s, time);
     }
 
     @Override

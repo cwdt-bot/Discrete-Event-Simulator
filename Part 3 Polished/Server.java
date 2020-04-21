@@ -28,14 +28,6 @@ public class Server {
     protected final int qmax;
     protected PriorityQueue<Customer> waiting = new PriorityQueue<>();
     /**
-     * the QUEUE_FULL static int is used to indicate that the Server's queue is full.
-     */
-    public static final int QUEUE_FULL = -1;
-    /**
-     * the IDLE static int is used to indicate that the Server is idle as an Integer. 
-     */
-    public static final int IDLE = -2;
-    /**
      * Used to denote a null Server. It does not have an ID, or a qmax
      */
     public static Server NULL_SERVER = new Server();
@@ -52,7 +44,7 @@ public class Server {
     }
 
     /**
-     * Used to construct a null Server
+     * Used to construct a null Server. 
      */
     private Server() {
         this.id = 0;
@@ -109,9 +101,9 @@ public class Server {
     public int queue() {
         int curr = this.waiting.size();
         if (curr >= qmax) {
-            return Server.QUEUE_FULL;
+            return QueueStatus.QFULL;
         } else if (this.canServe()) {
-            return Server.IDLE;
+            return QueueStatus.IDLE;
         } else {
             return curr;
         }

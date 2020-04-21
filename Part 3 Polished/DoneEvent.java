@@ -6,8 +6,6 @@ package cs2030.simulator;
  */
 
 public class DoneEvent extends Event {
-    private static final int eventWeight = 2;
-
     /**
      * Creates a DoneEvent with Customer/Server match at the specified time.
      * @param c Customer involved
@@ -15,7 +13,7 @@ public class DoneEvent extends Event {
      * @param time double indicating time of occurence
      */
     public DoneEvent(Customer c, Server s, double time) {
-        super(c,s,time,DoneEvent.eventWeight);
+        super(c,s,time);
     }
 
     @Override

@@ -71,46 +71,17 @@ public class Store {
     }
 
     /**
-     * Goes through all the Servers contained in the Store and returns their status
-     * as List of Integers, where the index of the int corresponds to the Server in the 
-     * same index internal List of Servers i.e. the first int is the status of the first
-     * Server. 
-     * 
-     * <p>
-     * The ints in the list indicate the number of Customers waiting for each corresponding
-     * Server. However, there are special values to indicate that Server's queue is full
-     * (Server.QUEUE_FULL) or that a Server is idle (Server.IDLE), which are static ints
-     * provided by the Server class to indicate the corresponding states. 
-     * </p>
-     * 
-     * <p>
-     * The Store takes these values and 'translates' it for the Customer. 
-     * Using static ints provided by the Customer class, the Store adds 
-     * Customer.JOIN_FAIL to the list when the Server indicates that it is full via 
-     * Server.QUEUE_FULL and Customer.INDICATE_IDLE when the Server indicates that 
-     * it is idle via Server.IDLE. 
-     * </p>
-     * 
-     * <p>
-     * This way, the status of each Server is fully communicated to the Customer. 
-     * The Customer knows which queues it can join, which Servers are idle, and 
-     * the number of other Customers in queues it can join. 
-     * </p>
-     * @return List of Integers indicating the status all the Servers in the store. 
+     * Builds a QueueStatus object that represents the status of each 
+     * of the Servers in the Store. Note that the order of the Servers 
+     * is preserved inside the QueueStatus object in order for the QueueStatus
+     * to return the correct index corresponding to the index of the Server
+     * in the Store.servers list. 
+     * @return QueueStatus of the Store
      */
-    private List<Integer> query() {
-        List<Integer> result = new ArrayList<>();
-        for (Server s : servers) {
-            int signal = s.queue();
-            if (signal == Server.IDLE) {
-                result.add(Customer.INDICATE_IDLE);
-            } else if (signal == Server.QUEUE_FULL) {
-                result.add(Customer.JOIN_FAIL);
-            } else {
-                result.add(signal);
-            }
-        }
-        return result;
+    private QueueStatus query() {
+        QueueStatus qs = new QueueStatus();
+        servers.stream().forEach(x -> qs.add(x.queue()));
+        return qs;
     }
 
     /**
@@ -196,7 +167,7 @@ public class Store {
                 Customer c = e.cust();
                 //customer indicates which queue to join
                 int join = c.assess(this.query()); 
-                if (join == Customer.JOIN_FAIL) { //customer fails to join any queue
+                if (join == QueueStatus.QFULL) { //customer fails to join any queue
                     //create leave event at the same time
                     LeftEvent leave = new LeftEvent(c); 
                     //add into events

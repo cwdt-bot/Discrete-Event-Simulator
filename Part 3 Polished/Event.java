@@ -5,13 +5,8 @@ package cs2030.simulator;
  * 
  * <p>
  * There are different events current tracked by the state string parameter. All are compared
- * via the time > id > event weight as indicated in the compareTo() method defined as 
+ * via the time > id as indicated in the compareTo() method defined as 
  * part of the Comparable interface. 
- * </p>
- * 
- * <p>
- * Event weight is the priority given to each type of event subclass which indicates
- * which should event the store should process first. 
  * </p>
  * 
  * <p>
@@ -22,26 +17,22 @@ package cs2030.simulator;
 public abstract class Event implements Comparable<Event> {
     /**
      * Each event can hold a Customer, a Server and must have a time. 
-     * Each event should also have a weight to indicate priority. 
      */
     protected final Customer c;
     protected final Server s;
     private final double time;
-    private final int eventWeight;
 
     /**
-     * Constructs an event. Events that do not include a Waiter/Customer match has a null value for 
-     * Event.Waiter.
+     * Constructs an event. Events that do not include a Server/Customer match has a null
+     * representative in the corresponding field. 
      * @param c Customer involved
      * @param s Waiter involved
      * @param time event time 
-     * @param weight priority of the event; smaller means higher priority.
      */
-    protected Event(Customer c, Server s, double time, int weight) {
+    protected Event(Customer c, Server s, double time) {
         this.c = c;
         this.s = s;
         this.time = time;
-        this.eventWeight = weight;
     }
 
     /**
@@ -55,15 +46,14 @@ public abstract class Event implements Comparable<Event> {
     /**
      * Implements compareTo() as part of the Comparable Interface. 
      * 
-     * <p> Priority heirarchy goes time > customer id > event weight. </p>
+     * <p> Priority heirarchy goes time > customer id > </p>
+     * 
+     * <p> Note that ReturnEvent has a NULL_CUSTOMER and will win all timing tiebreaks
+     * </p>
      */
     public int compareTo(Event e) {
         if (e.getTime() == this.getTime()) {
-            if (this.cust().id() == e.cust().id()) {
-                return this.weight() - e.weight();
-            } else {
-                return this.cust().id() - e.cust().id();
-            }
+            return this.cust().compareTo(e.cust());
         } else if (this.getTime() < e.getTime()) {
             return -1;
         } else {
@@ -86,13 +76,4 @@ public abstract class Event implements Comparable<Event> {
     public Server server() {
         return this.s;
     }
-
-    /**
-     * Gets the event priority. A higher number means a lower priority. 
-     * @return int indicated priority of the event. 
-     */
-    private int weight() {
-        return this.eventWeight;
-    }
-    
 }

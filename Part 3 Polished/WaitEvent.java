@@ -6,8 +6,6 @@ package cs2030.simulator;
  */
 
 public class WaitEvent extends Event {
-    private static final int eventWeight = 3;
-
     /**
      * Creates a WaitEvent modelling a Customer waiting in queue to be served 
      * by a Server. 
@@ -16,7 +14,7 @@ public class WaitEvent extends Event {
      * @param time double representing the time the Customer starts waiting
      */
     public WaitEvent(Customer c, Server s, double time) {
-        super(c,s,time,WaitEvent.eventWeight);
+        super(c,s,time);
     }
 
     @Override

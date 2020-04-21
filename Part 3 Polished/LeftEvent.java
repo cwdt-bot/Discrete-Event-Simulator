@@ -13,7 +13,6 @@ public class LeftEvent extends Event {
      * hence the NULL_SERVER
      */
     private static final Server numServer = Server.NULL_SERVER;
-    private static final int eventWeight = 4;
 
     /**
      * Creates LeftEvent that indicates a Customer leaving. 
@@ -23,7 +22,7 @@ public class LeftEvent extends Event {
      * @param c Customer leaving
      */
     public LeftEvent(Customer c) {
-        super(c,LeftEvent.numServer,c.arrTime(),LeftEvent.eventWeight);
+        super(c,LeftEvent.numServer,c.arrTime());
     }
 
     @Override
